@@ -1,0 +1,43 @@
+<template>
+    <lightning-card
+        title="Account Lookup"
+        icon-name="standard:account"
+    >
+        <div class="slds-var-m-around_medium">
+            <lightning-layout
+                vertical-align="end"
+                class="slds-var-m-bottom_small"
+            >
+                <lightning-layout-item flexibility="grow">
+                    <lightning-input
+                        type="search"
+                        onchange={handleKeyChange}
+                        label="Search"
+                        value={searchKey}
+                    ></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item class="slds-var-p-left_xx-small">
+                    <lightning-button
+                        label="Search"
+                        onclick={handleSearch}
+                    ></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+            <template if:true={accounts}>
+                <template for:each={accounts} for:item="account">
+                    <lightning-card key={account.Id}>
+                        <div class="slds-box slds-theme_default">
+                            {account.Name}
+                            <!-- <c-deep-link label={account.Name} record-id={account.Id}></c-deep-link> -->
+                            <p><lightning-formatted-phone value={account.Phone}>
+                            </lightning-formatted-phone></p>
+                        </div>
+                    </lightning-card>
+                </template>
+            </template>
+        </div>
+        <template if:true={error}>
+            <div>{error}</div>
+        </template>
+    </lightning-card>
+</template>
